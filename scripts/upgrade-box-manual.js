@@ -1,3 +1,4 @@
+// manual deploy just for the sake of learning
 const { developmentChains, VERIFICATION_BLOCK_CONFIRMATIONS } = require("../helper-hardhat-config")
 const { network, deployments, deployer } = require("hardhat")
 const { verify } = require("../helper-functions")
@@ -31,6 +32,7 @@ async function main() {
     const transparentProxy = await ethers.getContract("Box_Proxy")
     const upgradeTx = await boxProxyAdmin.upgrade(transparentProxy.address, boxV2.address)
     await upgradeTx.wait(1)
+    // the below means: we want to upgrade the contract from Box to BoxV2 so we tell the proxy to load the ABI of contract "BoxV2" but with the address of transparentProxy.address
     const proxyBox = await ethers.getContractAt("BoxV2", transparentProxy.address)
     const version = await proxyBox.version()
     console.log(version.toString())

@@ -13,7 +13,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
 
     log("----------------------------------------------------")
 
-    const box = await deploy("BoxV2", {
+    const boxV2 = await deploy("BoxV2", {
         from: deployer,
         args: [],
         log: true,
@@ -26,7 +26,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // Verify the deployment
     if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
         log("Verifying...")
-        await verify(box.address, [])
+        await verify(boxV2.address, [])
     }
     log("----------------------------------------------------")
 }
